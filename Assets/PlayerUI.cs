@@ -34,12 +34,28 @@ public class PlayerUI : MonoBehaviour
 
         destinationPoint = new Vector3(destinationPointX, destinationPointY, destinationPointZ);
     }
+    private int TiltCalculator()
+    {
+        // need to refactor
+        int tilt = Random.Range(0, 2);
+        if(tilt == 0)
+        {
+            return -1;
+        }
+        else
+        {
+            return 1;
+        }
+    }
     public void DealDamage()
     {
+        
         float damage = Random.Range(120, 150);
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[0], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
     }
@@ -49,6 +65,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[1], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString() + "!";
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
     }
@@ -58,6 +76,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[2], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
@@ -68,6 +88,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[3], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString() + "!";
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
@@ -78,6 +100,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[4], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
@@ -88,6 +112,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[5], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
     }
@@ -101,6 +127,8 @@ public class PlayerUI : MonoBehaviour
         playerStats.TakeDamage(damage);
         DestinationCalculator();
         GameObject text = Instantiate(texts[6], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
     }
