@@ -28,9 +28,8 @@ public class PlayerStats : MonoBehaviour, IDamagable
         gameObject.SetActive(false);
     }
 
-    public void Heal()
+    public void Heal(float heal)
     {
-        float heal = maxHealth;
         health += heal;
         if (health > maxHealth)
         {
@@ -41,7 +40,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     public void Revive()
     {
         if(gameObject.activeSelf == false) gameObject.SetActive(true);
-        Heal();
+        Heal(10000);
     }
 
 }

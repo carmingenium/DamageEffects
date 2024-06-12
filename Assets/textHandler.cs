@@ -29,6 +29,6 @@ public class textHandler : MonoBehaviour
     }
     public void MoveText()
     {
-        transform.position = Vector3.MoveTowards(transform.position, destinationPoint, speed * Time.deltaTime *0.1f);
+        transform.position = Vector3.MoveTowards(transform.position, destinationPoint, speed * Time.deltaTime);
     }
 }

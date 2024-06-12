@@ -132,4 +132,16 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
     }
+    public void Heal()
+    {
+
+        float healAmount = Random.Range(200, 250);
+        playerStats.Heal(healAmount);
+        DestinationCalculator();
+        GameObject text = Instantiate(texts[7], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
+        string finalText = "+" + healAmount.ToString();
+        text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
+    }
 }
