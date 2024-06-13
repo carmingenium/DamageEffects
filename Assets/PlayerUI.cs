@@ -9,11 +9,7 @@ public class PlayerUI : MonoBehaviour
     public PlayerStats playerStats;
 
     private Vector3 spawnPoint;
-    private Vector3 destinationPoint;
-
-    public float destinationPointX;
-    public float destinationPointY;
-    public float destinationPointZ;
+    [SerializeField] private Vector3 destinationPoint;
 
     [SerializeField] private GameObject canvas;
     [SerializeField] private List<GameObject> texts;
@@ -22,37 +18,16 @@ public class PlayerUI : MonoBehaviour
         playerStats = player.GetComponent<PlayerStats>();
         spawnPoint = player.transform.position;
     }
-    public void DestinationCalculator()
-    {
-        float offsetX = Random.Range(-0.2f, 0.2f);
-        float offsetY = Random.Range(-0.2f, 0.2f);
-        float offsetZ = Random.Range(-0.2f, 0.2f);
-
-        destinationPointX += spawnPoint.x + offsetX;
-        destinationPointY += spawnPoint.y + offsetY;
-        destinationPointZ += spawnPoint.z + offsetZ;
-
-        destinationPoint = new Vector3(destinationPointX, destinationPointY, destinationPointZ);
-    }
     private int TiltCalculator()
     {
-        // need to refactor
-        int tilt = Random.Range(0, 2);
-        if(tilt == 0)
-        {
-            return -1;
-        }
-        else
-        {
-            return 1;
-        }
+        // There are 3 tilt positions, -15 degrees, 0 degrees, 15 degrees
+        int tilt = Random.Range(0, 3);
+        return tilt - 1;
     }
     public void DealDamage()
     {
-        
         float damage = Random.Range(120, 150);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[0], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -63,7 +38,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(240, 300);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[1], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -74,7 +48,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(240, 300);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[2], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -86,7 +59,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(240, 300);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[3], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -98,7 +70,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(10, 20);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[4], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -110,7 +81,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(20, 35);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[5], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -125,7 +95,6 @@ public class PlayerUI : MonoBehaviour
     {
         float damage = Random.Range(500,600);
         playerStats.TakeDamage(damage);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[6], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
@@ -137,7 +106,6 @@ public class PlayerUI : MonoBehaviour
 
         float healAmount = Random.Range(200, 250);
         playerStats.Heal(healAmount);
-        DestinationCalculator();
         GameObject text = Instantiate(texts[7], spawnPoint, Quaternion.identity, canvas.transform);
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);

@@ -14,8 +14,6 @@ public class PlayerStats : MonoBehaviour, IDamagable
 
     public void TakeDamage(float dmg)
     {
-
-
         health -= dmg;
         if (health <= 0)
         {
