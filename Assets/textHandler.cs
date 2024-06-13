@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using TMPro;
 
 public class textHandler : MonoBehaviour
 {
@@ -18,21 +17,11 @@ public class textHandler : MonoBehaviour
     }
     public void Start()
     {
-        transform.DOMove(destinationPoint, 1f).SetEase(Ease.OutCubic).OnComplete(() => Destroy(gameObject));
+        transform.DOMove(destinationPoint, 1f).SetEase(Ease.OutSine).OnComplete(() => StartCoroutine(WaitBeforeRemoval()));
     }
-    public void Update()
+    IEnumerator WaitBeforeRemoval()
     {
-        //if (transform.position != destinationPoint)
-        //{
-        //    MoveText();
-        //}
-        //else
-        //{
-        //    Destroy(gameObject);
-        //}
-    }
-    public void MoveText()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, destinationPoint, speed * Time.deltaTime);
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
     }
 }
