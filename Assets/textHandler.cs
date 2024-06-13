@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class textHandler : MonoBehaviour
 {
@@ -14,18 +15,21 @@ public class textHandler : MonoBehaviour
         destinationPoint = dest;
         text = GetComponentInChildren<TextMeshProUGUI>();
         text.SetText(dmg);
-
+    }
+    public void Start()
+    {
+        transform.DOMove(destinationPoint, 1f).SetEase(Ease.OutCubic).OnComplete(() => Destroy(gameObject));
     }
     public void Update()
     {
-        if (transform.position != destinationPoint)
-        {
-            MoveText();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //if (transform.position != destinationPoint)
+        //{
+        //    MoveText();
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
     }
     public void MoveText()
     {
