@@ -75,7 +75,7 @@ public class PlayerUI : MonoBehaviour
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
-        // display super text
+        // display weak text
     }
     public void PoisonDamage()
     {
