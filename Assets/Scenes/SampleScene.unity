@@ -248,9 +248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 549375867}
   playerStats: {fileID: 0}
-  destinationPointX: 0
-  destinationPointY: 2
-  destinationPointZ: 0
+  destinationPoint: {x: 0, y: 2, z: 0}
   canvas: {fileID: 1560752542}
   texts:
   - {fileID: 3677401861873773875, guid: 016989c0475d43d4e8980e7f34d782d5, type: 3}
