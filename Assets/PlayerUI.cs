@@ -54,6 +54,8 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
+        GameObject superText = Instantiate(texts[9], spawnPoint, Quaternion.identity, canvas.transform);
+        superText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
     public void SuperCritDamage()
     {
@@ -65,6 +67,8 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString() + "!";
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
+        GameObject superText = Instantiate(texts[9], spawnPoint, Quaternion.identity, canvas.transform);
+        superText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
     public void WeakDamage()
     {
@@ -76,6 +80,8 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display weak text
+        GameObject weakText = Instantiate(texts[8], spawnPoint, Quaternion.identity, canvas.transform);
+        weakText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
     public void PoisonDamage()
     {

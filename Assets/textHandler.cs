@@ -9,6 +9,9 @@ public class textHandler : MonoBehaviour
     TextMeshProUGUI text;
     public float speed;
 
+    public void SetupImage(Vector3 dest){
+        destinationPoint = dest;
+    }
     public void Setup(Vector3 dest, string dmg)
     {
         // setting up destination and text from UImanager
