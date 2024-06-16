@@ -54,6 +54,7 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
+        StartCoroutine(Wait(0.5f));
         GameObject superText = Instantiate(texts[9], spawnPoint, Quaternion.identity, canvas.transform);
         superText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
@@ -67,6 +68,7 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString() + "!";
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display super text
+        StartCoroutine(Wait(0.5f));
         GameObject superText = Instantiate(texts[9], spawnPoint, Quaternion.identity, canvas.transform);
         superText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
@@ -80,6 +82,7 @@ public class PlayerUI : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
         // display weak text
+        StartCoroutine(Wait(0.5f));
         GameObject weakText = Instantiate(texts[8], spawnPoint, Quaternion.identity, canvas.transform);
         weakText.GetComponent<textHandler>().SetupImage(destinationPoint);
     }
@@ -117,5 +120,9 @@ public class PlayerUI : MonoBehaviour
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "+" + healAmount.ToString();
         text.GetComponent<textHandler>().Setup(destinationPoint, finalText);
+    }
+    IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
     }
 }
