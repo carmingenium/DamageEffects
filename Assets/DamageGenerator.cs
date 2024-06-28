@@ -34,7 +34,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
     }
     public void DealCritDamage()
     {
@@ -45,7 +45,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString() + "!";
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
     }
     public void SuperDamage()
     {
@@ -56,7 +56,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display super text
         StartCoroutine(SecondTextSpawn(0.3f, 7));
     }
@@ -69,7 +69,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString() + "!";
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display super text
         StartCoroutine(SecondTextSpawn(0.3f, 7));
     }
@@ -82,7 +82,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display weak text
         StartCoroutine(SecondTextSpawn(0.3f, 6));
     }
@@ -95,7 +95,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
     }
     public void TakeDamage()
     {
@@ -106,7 +106,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
     }
     public void Heal()
     {
@@ -117,7 +117,7 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "+" + healAmount.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
     }
     public void Revive()
     {
@@ -131,6 +131,6 @@ public class DamageGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         GameObject secondText = Instantiate(texts[index], spawnPoint, Quaternion.identity, canvas.transform);
-        secondText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint);
+        secondText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint, false);
     }
 }
