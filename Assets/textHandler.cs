@@ -42,7 +42,7 @@ public class textHandler : MonoBehaviour
 
             // First white background pops up, then SUPER. first the S of super pops up, then remaining characters (not implemented in this demo, need the right images before doing this.)
 
-            // white background disappears as soon as super text starts fading out.
+            // white background disappears just before super text starts fading out. it takes around 3 frames.
             // doesnt move for a while (15 frames in 30), then fades out as it goes down(5 frames in 30).
             else if (imageType == "whiteBG") // background for super text
             {
@@ -104,8 +104,18 @@ public class textHandler : MonoBehaviour
     }
     IEnumerator WhiteBGBehaviour()
     {
-        //15 frames lifespan
-        yield return new WaitForSeconds(15f / 30f);
+        // 15 frames lifespan
+        // 12 frames to wait
+        yield return new WaitForSeconds(12f / 30f);
+        // 3 frames to disappear
+        Image sprite = GetComponent<Image>();
+        for (float f = 1f; f > -0.05f; f -= 0.17f)
+        {
+            Color c = sprite.color;
+            c.a = f;
+            sprite.color = c;
+            yield return new WaitForSeconds(0.5f / 30f);
+        }
         Destroy(gameObject);
     }
     IEnumerator FadeOutWeakImage()
