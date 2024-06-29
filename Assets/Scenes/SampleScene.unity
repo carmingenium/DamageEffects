@@ -250,7 +250,7 @@ MonoBehaviour:
   enemyStats: {fileID: 0}
   player: {fileID: 549375867}
   playerStats: {fileID: 0}
-  destinationPoint: {x: 0, y: 1.5, z: 0}
+  destinationPoint: {x: 0, y: 2, z: 0}
   canvas: {fileID: 1227505797}
   texts:
   - {fileID: 3677401861873773875, guid: 016989c0475d43d4e8980e7f34d782d5, type: 3}
@@ -263,6 +263,7 @@ MonoBehaviour:
   - {fileID: 3677401861873773875, guid: 00f3d9ac47f53aa45855a6eae5be6dd7, type: 3}
   - {fileID: 3677401861873773875, guid: 5be0ca9ad8815d64fa404000f5ef80a6, type: 3}
   - {fileID: 3677401861873773875, guid: 7ab90c4c63a8b73449c4b5555dba73b1, type: 3}
+  - {fileID: 3677401861873773875, guid: 4e567cdde741bda4891fd74a31369976, type: 3}
 --- !u!1 &91977906
 GameObject:
   m_ObjectHideFlags: 0

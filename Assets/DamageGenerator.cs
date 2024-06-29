@@ -58,7 +58,7 @@ public class DamageGenerator : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display super text
-        StartCoroutine(SecondTextSpawn(0.3f, 7));
+        StartCoroutine(SuperTextSpawn(0.33f));
     }
     public void SuperCritDamage()
     {
@@ -71,7 +71,7 @@ public class DamageGenerator : MonoBehaviour
         string finalText = "-" + damage.ToString() + "!";
         text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display super text
-        StartCoroutine(SecondTextSpawn(0.3f, 7));
+        StartCoroutine(SuperTextSpawn(0.33f));
     }
     public void WeakDamage()
     {
@@ -84,7 +84,7 @@ public class DamageGenerator : MonoBehaviour
         string finalText = "-" + damage.ToString();
         text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
         // display weak text
-        StartCoroutine(SecondTextSpawn(0.3f, 6));
+        StartCoroutine(WeakTextSpawn(0.33f));
     }
     public void PoisonDamage()
     {
@@ -127,10 +127,20 @@ public class DamageGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
     }
-    IEnumerator SecondTextSpawn(float time, int index)
+    IEnumerator WeakTextSpawn(float time)
     {
         yield return new WaitForSeconds(time);
-        GameObject secondText = Instantiate(texts[index], spawnPoint, Quaternion.identity, canvas.transform);
-        secondText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint, false);
+        GameObject weakText = Instantiate(texts[6], spawnPoint - new Vector3(0,1f,0), Quaternion.identity, canvas.transform);
+        weakText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint - new Vector3(0, 1, 0), false, "weak");
+    }
+    IEnumerator SuperTextSpawn(float time)
+    {
+        // first spawn white bg, then text.
+        yield return new WaitForSeconds(time);
+        GameObject whiteBG = Instantiate(texts[10], spawnPoint, Quaternion.identity, canvas.transform);
+        whiteBG.GetComponent<textHandler>().SetupImage(spawnPoint, false, "whiteBG");
+        yield return new WaitForSeconds(0.05f);
+        GameObject superText = Instantiate(texts[7], spawnPoint, Quaternion.identity, canvas.transform);
+        superText.GetComponent<textHandler>().SetupImage(spawnPoint - new Vector3(0, 0.5f, 0), false, "super");
     }
 }
