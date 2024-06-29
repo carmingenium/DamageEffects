@@ -7,6 +7,7 @@ public class PlayerStats : MonoBehaviour, IDamagable
     [SerializeField] private float health;
     [SerializeField] private float maxHealth = 10000;
 
+    // This script is to handle numbers for damages and health, not necessarily related to demo
     public void Start()
     {
         health = maxHealth;

@@ -3,26 +3,33 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
+
 public class textHandler : MonoBehaviour
 {
     Vector3 destinationPoint;
     TextMeshProUGUI text;
     public float speed;
-    bool type;
+    string type;
     string imageType;
 
+    // in this script, "frames" are used to determine relative time for animations. Used 30 FPS to convert frames on the videos to seconds. Because of this, most animations are divided into 30f.
 
-    // need to change bool to string for clarification, optimization won't affect this project much aside from object pools.
 
     public void Start()
     {
-        // FOR DAMAGE TEXT: 20 frames to complete, 10 frames to fade out. so 2 to 1 ratio count 30 frames as 1 sec
-        if (type)
+        // Text spawns over the damaged characters head, spawns in with a set rotation and goes only up before fading out quickly = 20 frames for moving up, 10 frames for fading out.
+        if (type == "text") // if damage text
+            // FOR DAMAGE TEXT: 20 frames to complete, 10 frames to fade out. so 2 to 1 ratio
             transform.DOMove(destinationPoint, (20f / 30f)).SetEase(Ease.OutCubic).OnComplete(() => StartCoroutine(FadeOutText()));
-        else{
+        else if(type == "image") // if super or weak image
+        { 
             if (imageType == "weak")
             {
-                // for images, 5 frame to reach middle, 5 frame to fade out so 10 frames = 1/3 sec
+                // Spawns from under the damage text with 0 alpha val
+                // Fades in as it goes up. As it reaches the middle of the way and reaches full alpha value, it slows down and stops for a bit.Then it starts gaining speed upwards and starts fading out.
+
+                // for images, 10 frame to reach middle, 10 frame to fade out so 20 frames
                 StartCoroutine(FadeInWeakImage());
                 transform.DOMove(new Vector3(destinationPoint.x, ((destinationPoint.y - transform.position.y) / 2) + transform.position.y, destinationPoint.z),
                     (10f / 30f)).SetEase(Ease.OutQuart).OnComplete(() =>
@@ -31,7 +38,13 @@ public class textHandler : MonoBehaviour
                         transform.DOMove(destinationPoint, (10f / 30f)).SetEase(Ease.InQuart);
                     });
             }
-            else if (imageType == "whiteBG")
+            // white background pops up with the damage text, at the same position. While weak text spawns long distance away from damage text
+
+            // First white background pops up, then SUPER. first the S of super pops up, then remaining characters (not implemented in this demo, need the right images before doing this.)
+
+            // white background disappears as soon as super text starts fading out.
+            // doesnt move for a while (15 frames in 30), then fades out as it goes down(5 frames in 30).
+            else if (imageType == "whiteBG") // background for super text
             {
                 StartCoroutine(WhiteBGBehaviour());
             }
@@ -43,16 +56,16 @@ public class textHandler : MonoBehaviour
     }
 
     #region Setups
-    public void SetupImage(Vector3 dest, bool image, string imageTypeParam){
+    // setting up destination and text from DamageGenerator
+    public void SetupImage(Vector3 dest, string imageTypeParam){
         destinationPoint = dest;
-        type = image;
+        type = "image";
         imageType = imageTypeParam;
     }
-    public void Setup(Vector3 dest, string dmg, bool txt)
+    public void Setup(Vector3 dest, string dmg)
     {
-        // setting up destination and text from UImanager
-        // destination could be set on this object, as it should only go up and should not change with anything.
-        type = txt;
+        // destination could be set on this object, as it should only go up and should not change with anything (only for damage texts, which are handled in this function).
+        type = "text";
         destinationPoint = dest;
         text = GetComponentInChildren<TextMeshProUGUI>();
         text.SetText(dmg);
@@ -62,6 +75,7 @@ public class textHandler : MonoBehaviour
     #region Fade Coroutines
     IEnumerator FadeOutText()
     {
+        // 10 frames to disappear
         for(float f = 1f; f > -0.05f; f -= 0.10f)
         {
             Color c = text.color;
@@ -96,7 +110,7 @@ public class textHandler : MonoBehaviour
     }
     IEnumerator FadeOutWeakImage()
     {
-        // 10 frames
+        // 10 frames to disappear
         Image sprite = GetComponent<Image>();
         for (float f = 1f; f > -0.05f; f-= 0.10f)
         {
@@ -111,7 +125,7 @@ public class textHandler : MonoBehaviour
     {
         // 9* frames
         Image sprite = GetComponent<Image>();
-        // instead of 10, starting with additional alpha value. Looks much better IMO.
+        // *instead of 10, starting with additional alpha value. Looks much better IMO.
         for (float f = 0.10f; f < 1.05f; f += 0.10f)
         {
             Color c = sprite.color;

@@ -7,11 +7,11 @@ public class EnemyStats : MonoBehaviour, IDamagable
     [SerializeField] private float health;
     [SerializeField] private float maxHealth = 10000;
 
+    // This script is to handle numbers for damages and health, not necessarily related to demo
     public void Start()
     {
         health = maxHealth;
     }
-
     public void TakeDamage(float dmg)
     {
         health -= dmg;
@@ -20,12 +20,10 @@ public class EnemyStats : MonoBehaviour, IDamagable
             Die();
         }
     }
-
     public void Die()
     {
         gameObject.SetActive(false);
     }
-
     public void Heal(float heal)
     {
         health += heal;
@@ -34,11 +32,9 @@ public class EnemyStats : MonoBehaviour, IDamagable
             health = maxHealth;
         }
     }
-
     public void Revive()
     {
         if(gameObject.activeSelf == false) gameObject.SetActive(true);
         Heal(10000);
     }
-
 }

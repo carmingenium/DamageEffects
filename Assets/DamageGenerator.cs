@@ -25,38 +25,36 @@ public class DamageGenerator : MonoBehaviour
         int tilt = Random.Range(0, 3);
         return tilt - 1;
     }
+    private void DamageTextGenerator(float dmg, int index)
+    {
+        GameObject text = Instantiate(texts[index], spawnPoint, Quaternion.identity, canvas.transform);
+        float tiltDirection = TiltCalculator();
+        text.transform.Rotate(0, 0, 15 * tiltDirection);
+        string finalText = "-" + dmg.ToString();
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
+    }
+
+    #region Damage Enemy Functions
     public void DealDamage()
     {
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(120, 150);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[0], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
+        DamageTextGenerator(damage, 0);
     }
     public void DealCritDamage()
     {
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(240, 300);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[1], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString() + "!";
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
+        DamageTextGenerator(damage, 1);
     }
     public void SuperDamage()
     {
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(240, 300);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[2], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
+        DamageTextGenerator(damage, 2);
         // display super text
         StartCoroutine(SuperTextSpawn(0.33f));
     }
@@ -65,11 +63,7 @@ public class DamageGenerator : MonoBehaviour
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(240, 300);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[3], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString() + "!";
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
+        DamageTextGenerator(damage, 3);
         // display super text
         StartCoroutine(SuperTextSpawn(0.33f));
     }
@@ -78,11 +72,7 @@ public class DamageGenerator : MonoBehaviour
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(10, 20);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[4], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText, true);
+        DamageTextGenerator(damage, 4);
         // display weak text
         StartCoroutine(WeakTextSpawn(0.33f));
     }
@@ -91,22 +81,16 @@ public class DamageGenerator : MonoBehaviour
         spawnPoint = enemy.transform.position;
         float damage = Random.Range(20, 35);
         enemyStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[5], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
+        DamageTextGenerator(damage, 5);
     }
+    #endregion
+    #region Player Functions
     public void TakeDamage()
     {
         spawnPoint = player.transform.position;
         float damage = Random.Range(500, 600);
         playerStats.TakeDamage(damage);
-        GameObject text = Instantiate(texts[8], spawnPoint, Quaternion.identity, canvas.transform);
-        float tiltDirection = TiltCalculator();
-        text.transform.Rotate(0, 0, 15 * tiltDirection);
-        string finalText = "-" + damage.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
+        DamageTextGenerator(damage, 8);
     }
     public void Heal()
     {
@@ -117,30 +101,29 @@ public class DamageGenerator : MonoBehaviour
         float tiltDirection = TiltCalculator();
         text.transform.Rotate(0, 0, 15 * tiltDirection);
         string finalText = "+" + healAmount.ToString();
-        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText , true);
+        text.GetComponent<textHandler>().Setup(spawnPoint + destinationPoint, finalText);
     }
     public void Revive()
     {
         playerStats.Revive();
     }
-    IEnumerator Wait(float time)
-    {
-        yield return new WaitForSeconds(time);
-    }
+    #endregion
+    #region Image Spawners
     IEnumerator WeakTextSpawn(float time)
     {
         yield return new WaitForSeconds(time);
         GameObject weakText = Instantiate(texts[6], spawnPoint - new Vector3(0,1f,0), Quaternion.identity, canvas.transform);
-        weakText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint - new Vector3(0, 1, 0), false, "weak");
+        weakText.GetComponent<textHandler>().SetupImage(spawnPoint + destinationPoint - new Vector3(0, 1, 0), "weak");
     }
     IEnumerator SuperTextSpawn(float time)
     {
         // first spawn white bg, then text.
         yield return new WaitForSeconds(time);
         GameObject whiteBG = Instantiate(texts[10], spawnPoint, Quaternion.identity, canvas.transform);
-        whiteBG.GetComponent<textHandler>().SetupImage(spawnPoint, false, "whiteBG");
+        whiteBG.GetComponent<textHandler>().SetupImage(spawnPoint, "whiteBG");
         yield return new WaitForSeconds(0.05f);
         GameObject superText = Instantiate(texts[7], spawnPoint, Quaternion.identity, canvas.transform);
-        superText.GetComponent<textHandler>().SetupImage(spawnPoint - new Vector3(0, 0.5f, 0), false, "super");
+        superText.GetComponent<textHandler>().SetupImage(spawnPoint - new Vector3(0, 0.5f, 0), "super");
     }
+    #endregion
 }
